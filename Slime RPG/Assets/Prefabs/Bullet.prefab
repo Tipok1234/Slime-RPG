@@ -110,8 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e0766909f408104eabad3ad918034bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
-  _speedBullet: 2
+  _speedBullet: 8
   _lifeTimeBullet: 5
   _enemyLayer:
     serializedVersion: 2

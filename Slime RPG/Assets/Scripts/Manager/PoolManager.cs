@@ -14,7 +14,7 @@ namespace Assets.Scripts.Manager
 
         private List<BulletModel> _bulletModels;
 
-        private int _bulletCount = 5;
+        private int _bulletCount = 10;
 
         private static PoolManager instance;
         private void Awake()

@@ -13,16 +13,25 @@ namespace Assets.Scripts.UI
 
         private float _maxHP;
         private float _currentHP;
-        public void Setup(int maxHP)
+        public void Setup(float maxHP)
         {
             _slider.value = 1;
             _maxHP = maxHP;
             _currentHP = _maxHP;
         }
 
-        public void UpdateHealthBar(int damage)
+        public void UpdateHealthBar(float damage)
         {
             _currentHP -= damage;
+
+            float endValue = _currentHP <= 0 ? 0 : _currentHP / _maxHP;
+
+            _slider.DOValue(endValue, _doTweenDuration);
+        }
+
+        public void AddHealthBar(float hp)
+        {
+            _currentHP += hp;
 
             float endValue = _currentHP <= 0 ? 0 : _currentHP / _maxHP;
 

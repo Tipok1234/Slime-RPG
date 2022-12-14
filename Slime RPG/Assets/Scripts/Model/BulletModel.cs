@@ -7,10 +7,8 @@ namespace Assets.Scripts.Model
 {
     public class BulletModel : MonoBehaviour
     {
-        [SerializeField] private int _damage;
         [SerializeField] private float _speedBullet;
         [SerializeField] private float _lifeTimeBullet;
-
         private float _currentTimeBullet;
 
         [SerializeField] private LayerMask _enemyLayer;
@@ -18,6 +16,8 @@ namespace Assets.Scripts.Model
 
         private bool _isActive;
         private Vector3 _direction;
+
+        private float _damage;
         private void FixedUpdate()
         {
             if (_isActive)
@@ -33,8 +33,9 @@ namespace Assets.Scripts.Model
                 {
                     if (hit.transform.TryGetComponent<EnemyModel>(out EnemyModel enemy))
                     {
-                        Debug.LogError("BUULT");
                         ResetBullet();
+                        enemy.TakeDamage(_damage);
+                        enemy.UpdateHP(_damage);
                     }
                 }
 
@@ -42,7 +43,7 @@ namespace Assets.Scripts.Model
                 {
                     if (hit1.transform.TryGetComponent<SlimeModel>(out SlimeModel ally))
                     {
-                        Debug.LogError("Ally");
+                        ally.UpdateHP(_damage);
                         ResetBullet();
                     }
                 }
@@ -56,11 +57,12 @@ namespace Assets.Scripts.Model
             gameObject.SetActive(false);
         }
 
-        public void SetupBullet(Vector3 direction)
+        public void SetupBullet(Vector3 direction, float damage)
         {
             _direction = direction.normalized;
             _direction.y = 0;
             _isActive = true;
+            _damage = damage;
         }
     }
 }
