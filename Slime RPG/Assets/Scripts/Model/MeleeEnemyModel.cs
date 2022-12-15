@@ -12,6 +12,7 @@ namespace Assets.Scripts.Model
     {
         public static event Action DeadAction;
         public bool IsDead => _isDead;
+
         [SerializeField] private Transform _spawnBulletTransform;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private float _stopDistance;

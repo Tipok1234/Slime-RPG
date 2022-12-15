@@ -25,6 +25,12 @@ namespace Assets.Scripts.Manager
             StartCoroutine(WaitSpawnEnemys());
         }
 
+        private void OnDestroy()
+        {
+            RangeEnemy.DeadAction -= OnDeadUnit;
+            MeleeEnemyModel.DeadAction -= OnDeadUnit;
+        }
+
         private IEnumerator WaitSpawnEnemys()
         {
             yield return new WaitForSeconds(2f);
@@ -40,7 +46,7 @@ namespace Assets.Scripts.Manager
                     Instantiate(_rangeEnemy, _enemyPosition[randomPos]);
 
 
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(6f);
             }
         }
 

@@ -13,8 +13,11 @@ namespace Assets.Scripts.Manager
 
         [SerializeField] private UpgradeWindow _upgradeWindow;
         [SerializeField] private EnemyManager _enemyManager;
-        [SerializeField] private SlimeModel _slimeModel;
+        [SerializeField] private SlimeModel _slimeModelPrefab;
 
+        [SerializeField] private Transform _startPos;
+
+        private SlimeModel _slimeModel;
         private void Awake()
         {
             _dataManager = FindObjectOfType<DataManager>();
@@ -24,22 +27,33 @@ namespace Assets.Scripts.Manager
         {
             _dataManager.LoadData();
             _upgradeWindow.Setup(_dataManager.CurrencyCount);
+            _slimeModel = Instantiate(_slimeModelPrefab, _startPos);
 
             Debug.LogError("CASHICK" + _dataManager.CurrencyCount);
 
             _enemyManager.DeadUnitAction += OnDeadUnit;
-
+            _slimeModel.DeadSlimeAction += OnDeadSlime;
             _upgradeWindow.UpgradeHPAction += OnUpgradeHP;
             _upgradeWindow.UpgradeDamageAction += OnUpgradeDamage;
             _upgradeWindow.UpgradeReloadAction += OnUpgradeReloadTime;
 
-            //_dataManager.SetupCharacteristic();
             _slimeModel.SetupCharacteristic(_dataManager.HP, _dataManager.Damage, _dataManager.ReloadTime);
 
             if (_dataManager.ReloadTime == 1)
             {
                 _upgradeWindow.HideText();
             }
+
+
+        }      
+
+        private void OnDestroy()
+        {
+            _enemyManager.DeadUnitAction -= OnDeadUnit;
+            _upgradeWindow.UpgradeHPAction -= OnUpgradeHP;
+            _upgradeWindow.UpgradeDamageAction -= OnUpgradeDamage;
+            _upgradeWindow.UpgradeReloadAction -= OnUpgradeReloadTime;
+            _slimeModel.DeadSlimeAction -= OnDeadSlime;
         }
 
         private void OnDeadUnit()
@@ -48,6 +62,10 @@ namespace Assets.Scripts.Manager
             _upgradeWindow.Setup(_dataManager.CurrencyCount);
         }
 
+        private void OnDeadSlime()
+        {
+            _upgradeWindow.RestartGame();
+        }
         private void OnUpgradeHP()
         {
             if (_dataManager.CurrencyCount >= 150)

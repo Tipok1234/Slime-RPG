@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedBullet: 8
-  _lifeTimeBullet: 5
+  _lifeTimeBullet: 3
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 8

@@ -119,6 +119,7 @@ MonoBehaviour:
   _speedMove: 1
   _reloadTime: 3
   _sphereRadius: 5
+  _myPos: {fileID: 1972026599473571028}
   _spawnBulletTransform: {fileID: 542854576804305564}
   _healthBar: {fileID: 4579781100833188924}
 --- !u!1001 &7790895378531477029
@@ -289,6 +290,11 @@ PrefabInstance:
 --- !u!224 &1972026599215272715 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8593107438863971630, guid: 2f33c6fee65fdcb44a8b838c86c9c6af, type: 3}
+  m_PrefabInstance: {fileID: 7790895378531477029}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1972026599473571028 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8593107438602257137, guid: 2f33c6fee65fdcb44a8b838c86c9c6af, type: 3}
   m_PrefabInstance: {fileID: 7790895378531477029}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4579781100833188924 stripped

@@ -47,6 +47,9 @@ namespace Assets.Scripts.Model
                         ResetBullet();
                     }
                 }
+
+                if (_currentTimeBullet >= _lifeTimeBullet)
+                    ResetBullet();
             }
         }
 

@@ -5,36 +5,35 @@ using Assets.Scripts.Manager;
 using Assets.Scripts.UI;
 using Assets.Scripts.Enum;
 using TMPro;
+using System;
 
 namespace Assets.Scripts.Model
 {
     public class SlimeModel : MonoBehaviour
     {
+        public event Action DeadSlimeAction;
         public float Damage => _damage;
         public float HP => _hp;
         public float ReloadTime => _reloadTime;
 
-        //public bool IsMaxUpgrade => _isMaxUpgrade;
-
         [SerializeField] private HealthBar _healthBar;
-
         [SerializeField] private LayerMask _enemyLayer;
         [SerializeField] private Transform _spawnBulletTransform;
 
         [SerializeField] private float _speedMove;
         [SerializeField] private float _sphereRadius;
 
+        [SerializeField] private TMP_Text _hpText;
+
         private float _reloadTime;
         private float _hp;
         private float _damage;
 
-        [SerializeField] private TMP_Text _hpText;
 
         private float _currentReloadTime = 0;
         private float _localMove;
-        //private bool _isMaxUpgrade = false;
-
         private EnemyModel _enemyModel;
+
         private void Start()
         {
             _localMove = _speedMove;
@@ -84,8 +83,10 @@ namespace Assets.Scripts.Model
             _hpText.text = _hp.ToString();
 
             if (_hp <= 0)
+            {
+                DeadSlimeAction?.Invoke();
                 Destroy(gameObject);
-
+            }
         }
 
         private void OnDrawGizmos()
@@ -118,13 +119,6 @@ namespace Assets.Scripts.Model
                     _damage += 20;
                     break;
                 case CharacteristicType.ReloadTime:
-
-                    //if (_reloadTime == 1)
-                    //{
-                    //    _isMaxUpgrade = true;
-                    //    return;
-                    //}
-
                     _reloadTime -= 1;
                     break;
             }
